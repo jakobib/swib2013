@@ -1,7 +1,8 @@
 # Holding ontology
 
-* What's a holding, copy, item, piece, copy ...?
-* There is a lot of confusion!
+* What's a holding, document copy, item, piece, copy ...?
+* Main purpose of holding ontology: 
+  clarify confusion.
 
 # What kind of holding data?
 
@@ -33,7 +34,7 @@ schema:Place = gr:Location
 
 Why put everything in one ontology if micro-ontologies can better be reused?
 
-docso:DocumenService
+dso:DocumentService
   : a service that includes a document (lending, accessing, copying...)
 
 ssso:ServiceEvent
@@ -90,12 +91,33 @@ The holding ontology combines existing ontologies (Bibo, FOAF, GoodRelations,
 Schema.org), new micro-ontologies (DOCSO, SSSO, ECPO, Service), and a couple of
 properties to all RDF terms required to describe holding information.
 
-# Some open questions
+# Micro-Ontologies
 
-* Can we just use `frbr:Item` without implying the unwanted rest of FRBR?
+Service Ontology
+  : <http://dini-ag-kim.github.io/service-ontology/>\
+    (4 classes, 8 properties)
 
-* Is the library service of lending a `schema:Product`, 
-  (even if it is not sold for money)?
+Document Service Ontology (DSO)
+  : <http://purl.org/ontology/dso>\
+    (5 classes, 2 properties)
 
-* ...
+Simple Service Status Ontology (SSSO)
+  : <http://purl.org/ontology/ssso>\
+    (8 classes, 2 properties)
+
+Holding Ontology
+  : <http://dini-ag-kim.github.io/holding-ontology/>\
+    (10 properties)
+
+Enumeration and Chronology of Periodicals Ontology (ECPO)
+  : <http://purl.org/ontology/ecpo>\
+    (3 classes, 29 properties, 2 individuals)
+
+DAIA Ontology (DAIA):
+  : <http://gbv.github.io/daiaspec>\
+    (4 properties)
+
+PAIA Ontology (PAIA)
+  : <http://purl.org/ontology/paia>\
+    (2 classes, 1 property, 2 individuals)
 
