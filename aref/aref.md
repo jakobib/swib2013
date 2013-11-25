@@ -1,61 +1,68 @@
-# Another RDF Encoding Form (aREF)
+## Another RDF Encoding Form?
 
-aREF = ( JSON-LD *light* + Turtle *light* ) - serialization
+**aREF** = JSON-LD *light* + Turtle *light*
 
-# What's wrong with existing serializations?
+* Based on maps, strings, and arrays like JSON 
+
+* Easy literals like Turtle:\
+  `"literal@language-tag"`\
+  `"literal^data:type"`
+
+## What's wrong with existing serializations?
 
 * RDF/XML is awful
-* Turtle is great but requires parsing
 * RDF/JSON is too verbose
-* JSON-LD is complex (13 keywords?!)
+* Turtle is one big string (parsing required)
+* JSON-LD is complex (13 keywords *WTF?!*)
 
-All of them are fixed to a specific data language (JSON, XML, Unicode).
+None of them are good for writing RDF data right in your code.
 
-# Purpose of aREF
+## Purpose of aREF
 
-Read and write RDF data in any code or data structures
-(JSON, YAML, INI files, Perl code, Ruby, Phython...).
+Read and write RDF data in any code or data structures\
+(JSON, YAML, INI files, Perl code, Ruby, Phython....)
 
-Serialization ---> List-Map-Structures --> RDF Triples
+                                           aREF
+    Serialization <--> List-Map-Structures <==> RDF Triples
+     (e.g. YAML)         (data structure)
+     
+## Example 1: Serialization in YAML
 
-# Examples (TODO)
+    _id:        http://example.com/people#john
+    foaf:name:  John Smith
+    foaf:age:   41^xsd:integer
+    foaf:homepage: 
+        - _id: http://personal.example.org/
+          dct:modified: 2010-05-29^xsd:date
+        - http://work.example.com/jsmith/
+    dct:description: a nice guy@en
+    foaf:knows: 
+        foaf:name: Alice
 
-INI-File
+## Example 2: Serialization in Perl-Code
 
-    _id = http://...
-    foaf:name =
+    $rdf = {
+      _id       => 'http://example.com/people#john',
+      foaf_name => 'John Smith',
+      foaf_age  => '41^xsd:integer',
+      foaf_homepage => [
+         { 
+           _id => 'http://personal.example.org/',
+           dct_modified => '2010-05-29^xsd:date',
+         },
+        'http://work.example.com/jsmith/',
+      ],
+      dct_description => 'a nice guy@en',
+      foaf_knows => { foaf_name => "Alice" },
+    };
 
-    [foaf:knows]
-    _id = ...
+## Getting started
 
-YAML
+* Current specification and issue tracker
+  <http://gbv.github.io/aREF/>
 
-    _id: ...
-    dct_modified: 2010-05-29T14:17:39+02:00^xsd:dateTime 
-    ...
+* Preliminary implementation in Perl:
+  <https://metacpan.org/release/Catmandu-RDF>
 
-# Example 3: Perl-Code
-
-~~~
-my $rdf = {
-  _id       => 'http://example.com/people#john',
-  foaf_name => 'John Smith',
-  foaf_age  => '41^xsd:integer',
-  foaf_homepage => [qw(
-     http://personal.example.org/
-     http://work.example.com/jsmith/
-  )],
-  dct_description => 'a nice guy@en',
-};
-~~~
-
-# Getting started
-
-Current specification and issue tracker at
-<http://gbv.github.io/aREF/>.
-
-First (preliminary) implementation as part of Perl module Catmandu::RDF:
-<https://metacpan.org/release/Catmandu-RDF>
-
-Feedback welcome!
+*Feedback welcome!*
 
